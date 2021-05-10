@@ -10,7 +10,7 @@ language: nodeJS
 # A Simple Serverless GraphQL API for Postgres and Aurora (postgres)
 
 
-This project uses 3 RDS databases to illustrate the differences between using each of them:
+This project uses 2 RDS databases to illustrate the differences between using each of them:
 
 * Aurora Serverless
 * PostgreSQL
