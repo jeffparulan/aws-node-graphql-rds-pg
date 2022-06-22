@@ -43,8 +43,8 @@ Deploying graphql-api-and-serverless to stage dev (us-east-1)
 ✔ Service deployed to stack graphql-api-and-serverless-dev (696s)
 
 endpoints:
-  POST - https://ht3npc6tq9.execute-api.us-east-1.amazonaws.com/dev/
-  GET - https://ht3npc6tq9.execute-api.us-east-1.amazonaws.com/dev/
+  POST - https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/dev/
+  GET - https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/dev/
 functions:
   graphql: graphql-api-and-serverless-dev-graphql (36 MB)
   playground: graphql-api-and-serverless-dev-playground (36 MB)
