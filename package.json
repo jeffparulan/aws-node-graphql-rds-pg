@@ -11,8 +11,10 @@
     "dependencies": {
         "graphql-yoga": "^1.17.4",
         "pg": "^7.11.0",
+        "serverless": "^3.19.0",
         "serverless-mysql": "^1.4.0",
-        "uuid": "^3.3.2"
+        "uuid": "^3.3.2",
+        "yarn": "^1.22.19"
     },
     "devDependencies": {
         "serverless-pseudo-parameters": "^2.4.0"

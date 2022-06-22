@@ -4,8 +4,8 @@ Properties:
   MasterUserPassword: ${self:custom.PASSWORD}
   DBSubnetGroupName:
     Ref: ServerlessSubnetGroup
-  Engine: aurora-postgresql
-  EngineVersion: 11.4
+  Engine: aurora
+  EngineVersion: 5.6
   DatabaseName: ${self:custom.DB_NAME}
   BackupRetentionPeriod: 3
   DBClusterParameterGroupName:

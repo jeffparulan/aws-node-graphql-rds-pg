@@ -90,7 +90,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/graphql-api-and-serverless/dev/1620656625884-2021-05-10T14:23:45.884Z/graphql-api-and-serverless.zip"
+          "S3Key": "serverless/graphql-api-and-serverless/dev/1655901166870-2022-06-22T12:32:46.870Z/graphql-api-and-serverless.zip"
         },
         "Handler": "handler.server",
         "Runtime": "nodejs12.x",
@@ -147,7 +147,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/graphql-api-and-serverless/dev/1620656625884-2021-05-10T14:23:45.884Z/graphql-api-and-serverless.zip"
+          "S3Key": "serverless/graphql-api-and-serverless/dev/1655901166870-2022-06-22T12:32:46.870Z/graphql-api-and-serverless.zip"
         },
         "Handler": "handler.playground",
         "Runtime": "nodejs12.x",
@@ -197,24 +197,24 @@
         "LambdaRole"
       ]
     },
-    "PlaygroundLambdaVersionvWsvyROcaZ3YHqUteaGXQRUhJQIOEWmGAS5bkvqGQ": {
-      "Type": "AWS::Lambda::Version",
-      "DeletionPolicy": "Retain",
-      "Properties": {
-        "FunctionName": {
-          "Ref": "PlaygroundLambdaFunction"
-        },
-        "CodeSha256": "4Nb83enVi5hMUoIKJmM4ZeYMH4W+aZDKgnBAKrVBTYU="
-      }
-    },
-    "GraphqlLambdaVersionwf2PhlTmadSTs1IiRYhhRA7K7MgEuXwx4K3kpnSyzg": {
+    "GraphqlLambdaVersionBptLfDFos9pnlmD2mKnkFFYUjuN8voPGi3YNkieE": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "GraphqlLambdaFunction"
         },
-        "CodeSha256": "4Nb83enVi5hMUoIKJmM4ZeYMH4W+aZDKgnBAKrVBTYU="
+        "CodeSha256": "AjAhzn0rA8WE0xK42Y4MgVCqaQZdjMzo6ZjlbuQs8Ps="
+      }
+    },
+    "PlaygroundLambdaVersionzz49nPLrnw8wa5OMBT13tkgD0iqQwcJZ59aQV1PyQw": {
+      "Type": "AWS::Lambda::Version",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "PlaygroundLambdaFunction"
+        },
+        "CodeSha256": "AjAhzn0rA8WE0xK42Y4MgVCqaQZdjMzo6ZjlbuQs8Ps="
       }
     },
     "ApiGatewayRestApi": {
@@ -261,7 +261,7 @@
                 "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET,POST'"
               },
               "ResponseTemplates": {
-                "application/json": "#set($origin = $input.params(\"Origin\"))\n#if($origin == \"\") #set($origin = $input.params(\"origin\")) #end\n#if($origin.matches(\".+\")) #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin) #end"
+                "application/json": ""
               }
             }
           ]
@@ -321,7 +321,10 @@
           }
         },
         "MethodResponses": []
-      }
+      },
+      "DependsOn": [
+        "GraphqlLambdaPermissionApiGateway"
+      ]
     },
     "ApiGatewayMethodGet": {
       "Type": "AWS::ApiGateway::Method",
@@ -367,9 +370,12 @@
           }
         },
         "MethodResponses": []
-      }
+      },
+      "DependsOn": [
+        "PlaygroundLambdaPermissionApiGateway"
+      ]
     },
-    "ApiGatewayDeployment1620656620769": {
+    "ApiGatewayDeployment1655901163206": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -699,9 +705,9 @@
       "Type": "AWS::RDS::DBClusterParameterGroup",
       "Properties": {
         "Description": "Parameter group for the Serverless Aurora RDS DB.",
-        "Family": "aurora-postgresql11",
+        "Family": "aurora5.6",
         "Parameters": {
-          "character_set_database": "utf8"
+          "character_set_database": "utf32"
         }
       }
     },
@@ -726,8 +732,8 @@
         "DBSubnetGroupName": {
           "Ref": "ServerlessSubnetGroup"
         },
-        "Engine": "aurora-postgresql",
-        "EngineVersion": 11.4,
+        "Engine": "aurora",
+        "EngineVersion": 5.6,
         "DatabaseName": "graphql",
         "BackupRetentionPeriod": 3,
         "DBClusterParameterGroupName": {
@@ -771,7 +777,7 @@
         "MasterUserPassword": "password",
         "AllocatedStorage": 20,
         "DBName": "graphql",
-        "DBInstanceClass": "db.t2.micro",
+        "DBInstanceClass": "db.t4g.small",
         "VPCSecurityGroups": [
           {
             "Fn::GetAtt": [
@@ -792,18 +798,27 @@
     "ServerlessDeploymentBucketName": {
       "Value": {
         "Ref": "ServerlessDeploymentBucket"
-      }
-    },
-    "PlaygroundLambdaFunctionQualifiedArn": {
-      "Description": "Current Lambda function version",
-      "Value": {
-        "Ref": "PlaygroundLambdaVersionvWsvyROcaZ3YHqUteaGXQRUhJQIOEWmGAS5bkvqGQ"
+      },
+      "Export": {
+        "Name": "sls-graphql-api-and-serverless-dev-ServerlessDeploymentBucketName"
       }
     },
     "GraphqlLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "GraphqlLambdaVersionwf2PhlTmadSTs1IiRYhhRA7K7MgEuXwx4K3kpnSyzg"
+        "Ref": "GraphqlLambdaVersionBptLfDFos9pnlmD2mKnkFFYUjuN8voPGi3YNkieE"
+      },
+      "Export": {
+        "Name": "sls-graphql-api-and-serverless-dev-GraphqlLambdaFunctionQualifiedArn"
+      }
+    },
+    "PlaygroundLambdaFunctionQualifiedArn": {
+      "Description": "Current Lambda function version",
+      "Value": {
+        "Ref": "PlaygroundLambdaVersionzz49nPLrnw8wa5OMBT13tkgD0iqQwcJZ59aQV1PyQw"
+      },
+      "Export": {
+        "Name": "sls-graphql-api-and-serverless-dev-PlaygroundLambdaFunctionQualifiedArn"
       }
     },
     "ServiceEndpoint": {
@@ -827,6 +842,9 @@
             "/dev"
           ]
         ]
+      },
+      "Export": {
+        "Name": "sls-graphql-api-and-serverless-dev-ServiceEndpoint"
       }
     }
   }
