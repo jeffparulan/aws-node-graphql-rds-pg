@@ -1,5 +1,5 @@
 const uuidv4 = require('uuid/v4');
-const { Client } = require('serverless-pg')
+const Client = require('serverless-mysql')
 var common = require('../Common/postgresql')
 
 exports.func = async (_, obj) => {
